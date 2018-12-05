@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 
+import { Movie } from "../type/movie";
 @Injectable({
   providedIn: "root"
 })
@@ -14,7 +15,7 @@ export class MoviesService {
     return `${this.API_URL}/${endpoint}`;
   }
 
-  public getMovies(): Observable<Array<any>> {
-    return this.http.get<Array<any>>(this.url("movies"));
+  public getMovies(): Observable<Array<Movie>> {
+    return this.http.get<Array<Movie>>(this.url("movies"));
   }
 }

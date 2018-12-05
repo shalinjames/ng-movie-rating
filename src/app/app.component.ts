@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
+import { Store, Select } from "@ngxs/store";
+import { Observable } from "rxjs";
 
-import { MoviesService } from "./webservice/movies.service";
+import { MoviesState } from "./store/movies.store";
 
 @Component({
   selector: "app-root",
@@ -9,10 +11,12 @@ import { MoviesService } from "./webservice/movies.service";
 })
 export class AppComponent implements OnInit {
   title = "ngMovieRating";
-  constructor(private moviesService: MoviesService) {}
+  @Select(MoviesState.getMovies)
+  movies$: Observable<any>;
+  constructor() {}
 
   ngOnInit() {
-    this.moviesService.getMovies().subscribe(res => {
+    this.movies$.subscribe(res => {
       console.log(res);
     });
   }
