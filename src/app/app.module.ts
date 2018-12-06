@@ -2,6 +2,8 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { OrderModule } from "ngx-order-pipe";
+import { StarRatingModule } from "angular-star-rating";
 
 //App modules
 import { StoreModule } from "./store";
@@ -16,10 +18,12 @@ import { NavigationComponent } from "./components/navigation/navigation.componen
   declarations: [AppComponent, MovieListItemComponent, NavigationComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     MaterialModuleModule,
     HttpClientModule,
     StoreModule,
-    BrowserAnimationsModule
+    OrderModule,
+    StarRatingModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

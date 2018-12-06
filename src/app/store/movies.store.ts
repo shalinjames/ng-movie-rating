@@ -42,9 +42,11 @@ export class MoviesState implements NgxsOnInit {
     { getState, patchState }: StateContext<MoviesState>,
     action: UpdateMovie
   ) {
+    const state = getState();
+    const index = state["movies"].indexOf(action.movie);
     patchState(
       produce(getState(), draft => {
-        draft[action.movieIndex] = action.movie;
+        draft["movies"][index] = action.movie;
       })
     );
   }
