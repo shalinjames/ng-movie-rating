@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
+import { map, catchError } from "rxjs/operators";
+import moviesJson from "../mock_service/movies.json";
 
 import { Movie } from "../type/movie";
 @Injectable({
@@ -16,6 +18,9 @@ export class MoviesService {
   }
 
   public getMovies(): Observable<Array<Movie>> {
-    return this.http.get<Array<Movie>>(this.url("movies"));
+    return this.http.get<Array<Movie>>(this.url("movies")).pipe(
+      map(res => res),
+      catchError(error => of(moviesJson.movies))
+    );
   }
 }
