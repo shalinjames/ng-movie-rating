@@ -1,0 +1,10 @@
+.movie-list-item {
+  width: 10em;
+  display: inline-block;
+  margin: 1em;
+  vertical-align: top;
+}
+
+.movie-list-item-wrapper {
+  display: inline;
+}
