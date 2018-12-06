@@ -7,7 +7,7 @@ import { MoviesService } from "../webservice/movies.service";
 import { SetInitialState, UpdateMovie } from "./movie.actions";
 
 export class MoviesStateModel {
-  movies: Array<Movie>;
+  movies: Movie[];
 }
 
 @State<MoviesStateModel>({
