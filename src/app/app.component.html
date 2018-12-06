@@ -1,5 +1,8 @@
 <!-- The content below is only a placeholder and can be replaced. -->
-<app-movie-list-item
-  *ngFor="let movie of movies"
-  [movie]="movie"
-></app-movie-list-item>
+<app-navigation></app-navigation>
+<div class="wrapper">
+  <app-movie-list-item
+    *ngFor="let movie of movies"
+    [movie]="movie"
+  ></app-movie-list-item>
+</div>
