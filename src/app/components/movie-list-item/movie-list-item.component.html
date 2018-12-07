@@ -1,15 +1,19 @@
 <div class="movie-list-item-wrapper">
   <mat-card class="movie-list-item">
     <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>{{ movie.title }}</mat-card-title>
-      <mat-card-subtitle> {{ movie.genres.join(", ") }} </mat-card-subtitle>
+      <div mat-card-avatar class="example-header-image">
+        <button mat-mini-fab color="primary">{{ index + 1 }}</button>
+      </div>
+      <mat-card-title> {{ movie.title }}</mat-card-title>
+      <mat-card-subtitle> {{ movie.actors.join(", ") }} </mat-card-subtitle>
     </mat-card-header>
 
     <img mat-card-image src="{{movie.posterurl}}" alt="{{movie.title}}" />
-
-    <mat-card-subtitle> Cast: {{ movie.actors.join(", ") }} </mat-card-subtitle>
-
+    <mat-chip-list>
+      <mat-chip *ngFor="let genere of movie.genres" color="primary" selected>{{
+        genere
+      }}</mat-chip>
+    </mat-chip-list>
     <mat-card-actions>
       <star-rating
         [starType]="'svg'"

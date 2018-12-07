@@ -2,6 +2,11 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "~css-star-rating/css/star-rating.min.css";
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   margin: 0;
   font-family: Roboto, sans-serif;
@@ -10,13 +15,4 @@ body {
 
 .mat-card-header-text {
   width: 100%;
-}
-
-html,
-body {
-  height: 100%;
-}
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
