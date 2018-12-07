@@ -21,7 +21,7 @@
         labelText="{{getRatingLabelText(movie.ratings)}}"
         labelPosition="bottom"
         size="large"
-        (starClickChange)="starClickChange($event, $index, movie)"
+        (starClickChange)="starClickChange($event, movie)"
       ></star-rating>
     </mat-card-actions>
   </mat-card>

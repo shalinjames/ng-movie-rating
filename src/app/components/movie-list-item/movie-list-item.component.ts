@@ -12,18 +12,17 @@ import { UpdateMovie } from "../../store/movie.actions";
 export class MovieListItemComponent implements OnInit {
   @Input("movie") movie: Movie;
   @Input("index") index: number;
-  constructor(private store: Store) {}
+  constructor(public store: Store) {}
 
   ngOnInit() {}
 
   getRatingLabelText(ratings) {
     let ratingText = "Below Average";
-    if (ratings > 2 && ratings < 3) ratingText = "Average";
-    if (ratings >= 3) ratingText = "Good";
+    if (ratings > 2 && ratings < 4) ratingText = "Average";
+    if (ratings >= 4) ratingText = "Good";
     return ratingText;
   }
-  starClickChange($event, $index, movie) {
-    console.log($event, this.index, movie);
+  starClickChange($event, movie) {
     movie.ratings = $event.rating;
     this.store.dispatch(new UpdateMovie(this.index, movie));
   }
