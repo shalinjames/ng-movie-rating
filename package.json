@@ -5,10 +5,11 @@
     "ng": "ng",
     "start": "npm run dev",
     "build": "ng build",
-    "test": "ng test",
+    "test": "npm run test-c",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "dev": "ng serve --open"
+    "dev": "ng serve --open",
+    "test-c": "ng test --code-coverage"
   },
   "private": true,
   "dependencies": {

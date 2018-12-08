@@ -13,9 +13,18 @@ import { MaterialModuleModule } from "./material-module";
 import { AppComponent } from "./app.component";
 import { MovieListItemComponent } from "./components/movie-list-item/movie-list-item.component";
 import { NavigationComponent } from "./components/navigation/navigation.component";
+import { RandomizeButtonComponent } from "./components/randomize-button/randomize-button.component";
+
+//Services
+import { RandomizeRatingsService } from "./utils/randomize-ratings/randomize-ratings.service";
 
 @NgModule({
-  declarations: [AppComponent, MovieListItemComponent, NavigationComponent],
+  declarations: [
+    AppComponent,
+    MovieListItemComponent,
+    NavigationComponent,
+    RandomizeButtonComponent
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -25,7 +34,7 @@ import { NavigationComponent } from "./components/navigation/navigation.componen
     OrderModule,
     StarRatingModule.forRoot()
   ],
-  providers: [],
+  providers: [RandomizeRatingsService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

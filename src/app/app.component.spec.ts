@@ -11,6 +11,7 @@ import { MovieListItemComponent } from "./components/movie-list-item/movie-list-
 import { MaterialModuleModule } from "./material-module";
 import { StarRatingModule } from "angular-star-rating";
 import { dummyMovies } from "./utils/test.util";
+import { RandomizeButtonComponent } from "./components/randomize-button/randomize-button.component";
 
 describe("AppComponent", () => {
   let comp, fixture;
@@ -33,7 +34,12 @@ describe("AppComponent", () => {
         MaterialModuleModule,
         StarRatingModule.forRoot()
       ],
-      declarations: [AppComponent, NavigationComponent, MovieListItemComponent]
+      declarations: [
+        AppComponent,
+        NavigationComponent,
+        MovieListItemComponent,
+        RandomizeButtonComponent
+      ]
     })
       .compileComponents()
       .then(() => {
@@ -61,6 +67,7 @@ describe("AppComponent", () => {
       fixture.nativeElement.querySelectorAll("app-movie-list-item").length
     ).toEqual(3);
   }));
+
   it("should render three movie with changed order after updating the ratings", async(() => {
     const updatedMovies = [...dummyMovies];
     updatedMovies[0].ratings = 1;
