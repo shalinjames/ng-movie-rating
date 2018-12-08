@@ -1,4 +1,4 @@
-[Live Demo](https://ngx-movie-rating.stackblitz.io/)
+[Live Demo](https://ng-movie-rating.stackblitz.io)
 
 # Movie Rating
 
