@@ -2,8 +2,9 @@ import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { NgxsModule } from "@ngxs/store";
 
 import { RandomizeButtonComponent } from "./randomize-button.component";
-import { MaterialModuleModule } from "../../material-module";
+import { MaterialModule } from "../../material-module";
 import { RandomizeRatingsService } from "../../utils/randomize-ratings/randomize-ratings.service";
+import { BUTTONS } from "./button.props";
 
 describe("RandomizeButtonComponent", () => {
   let component: RandomizeButtonComponent;
@@ -16,7 +17,7 @@ describe("RandomizeButtonComponent", () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [RandomizeButtonComponent],
-      imports: [MaterialModuleModule, NgxsModule.forRoot()],
+      imports: [MaterialModule, NgxsModule.forRoot()],
       providers: [
         { provide: RandomizeRatingsService, useValue: ratingServiceStub }
       ]
@@ -53,7 +54,7 @@ describe("RandomizeButtonComponent", () => {
       }
     ].forEach(setting => {
       it(`should have the button properties of ${setting.button}`, () => {
-        component.button = component.BUTTONS[setting.button];
+        component.button = BUTTONS[setting.button];
         fixture.detectChanges();
         const buttonEl = fixture.nativeElement.querySelector("button");
         const iconEl = fixture.nativeElement.querySelector("button mat-icon");
@@ -71,21 +72,15 @@ describe("RandomizeButtonComponent", () => {
       spyOn(component.randomizeRatings, "randomize");
       component.toggleRandomize();
 
-      expect(component.randomizeRatings.randomize).toHaveBeenCalledWith(
-        component.movies,
-        true
-      );
+      expect(component.randomizeRatings.randomize).toHaveBeenCalledWith(true);
       expect(component.randomize).toBeTruthy();
-      expect(component.button).toEqual(component.BUTTONS.STOP);
+      expect(component.button).toEqual(BUTTONS.STOP);
 
       component.toggleRandomize();
 
-      expect(component.randomizeRatings.randomize).toHaveBeenCalledWith(
-        component.movies,
-        false
-      );
+      expect(component.randomizeRatings.randomize).toHaveBeenCalledWith(false);
       expect(component.randomize).toBeFalsy();
-      expect(component.button).toEqual(component.BUTTONS.SHUFFLE);
+      expect(component.button).toEqual(BUTTONS.SHUFFLE);
     });
   });
 

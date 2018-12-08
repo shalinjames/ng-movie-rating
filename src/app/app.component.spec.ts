@@ -8,7 +8,7 @@ import { of } from "rxjs";
 import { AppComponent } from "./app.component";
 import { NavigationComponent } from "./components/navigation/navigation.component";
 import { MovieListItemComponent } from "./components/movie-list-item/movie-list-item.component";
-import { MaterialModuleModule } from "./material-module";
+import { MaterialModule } from "./material-module";
 import { StarRatingModule } from "angular-star-rating";
 import { dummyMovies } from "./utils/test.util";
 import { RandomizeButtonComponent } from "./components/randomize-button/randomize-button.component";
@@ -31,7 +31,7 @@ describe("AppComponent", () => {
         HttpClientTestingModule,
         NgxsModule.forRoot([]),
         OrderModule,
-        MaterialModuleModule,
+        MaterialModule,
         StarRatingModule.forRoot()
       ],
       declarations: [
@@ -50,11 +50,6 @@ describe("AppComponent", () => {
   it("should create the app", () => {
     const app = fixture.debugElement.componentInstance;
     expect(comp).toBeTruthy();
-  });
-
-  it(`should have as title 'ngMovieRating'`, () => {
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual("ngMovieRating");
   });
 
   it("should render navigation component", () => {

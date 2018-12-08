@@ -7,7 +7,7 @@ import { StarRatingModule } from "angular-star-rating";
 
 //App modules
 import { StoreModule } from "./store";
-import { MaterialModuleModule } from "./material-module";
+import { MaterialModule } from "./material-module";
 
 //Components
 import { AppComponent } from "./app.component";
@@ -28,7 +28,7 @@ import { RandomizeRatingsService } from "./utils/randomize-ratings/randomize-rat
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MaterialModuleModule,
+    MaterialModule,
     HttpClientModule,
     StoreModule,
     OrderModule,

@@ -1,9 +1,9 @@
 <!-- The content below is only a placeholder and can be replaced. -->
-<app-navigation [movies]="movies"></app-navigation>
+<app-navigation></app-navigation>
 <div class="wrapper">
   <!-- prettier-ignore -->
   <app-movie-list-item
-    *ngFor="let movie of movies | orderBy: 'ratings':true; index as i"
+    *ngFor="let movie of movies$ | async | orderBy: 'ratings':true; index as i"
     [movie]="movie" [index]="i"
   ></app-movie-list-item>
 </div>

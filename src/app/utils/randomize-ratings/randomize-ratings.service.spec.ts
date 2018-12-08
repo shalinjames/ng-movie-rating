@@ -20,7 +20,7 @@ describe("RandomizeRatingsService", () => {
 
   describe("#generateRandomNumber", () => {
     it("should generate random number within max value supplied", () => {
-      const randNum = service.generateRandomNumber(6);
+      const randNum = (service as any).generateRandomNumber(6);
       expect(isNaN(randNum)).toBeFalsy();
       expect(randNum).toBeLessThanOrEqual(6);
     });
@@ -28,93 +28,71 @@ describe("RandomizeRatingsService", () => {
 
   describe("#getRandomMovie", () => {
     it("should get a random movie every iteration", () => {
-      service.movies = [...dummyMovies];
+      (service as any).movies = [...dummyMovies];
       const randomMovies = [];
-      service.movies.forEach((movie, index) => {
-        const randMovie = service.getRandomMovie();
+      (service as any).movies.forEach((movie, index) => {
+        const randMovie = (service as any).getRandomMovie();
         expect(randomMovies.includes(randMovie)).toBeFalsy();
-        expect(service.randomizedMovieIndicies.length).toEqual(index + 1);
+        expect((service as any).randomizedMovieIndicies.length).toEqual(
+          index + 1
+        );
         randomMovies.push(randMovie);
       });
-      service.getRandomMovie();
-      expect(service.randomizedMovieIndicies.length).toEqual(1);
+      (service as any).getRandomMovie();
+      expect((service as any).randomizedMovieIndicies.length).toEqual(1);
 
-      service.randomizedMovieIndicies.push(1);
-      spyOn(service, "generateRandomNumber").and.returnValue(1);
-      spyOn(service, "getRandomMovie");
-      service.getRandomMovie();
-      expect(service.getRandomMovie).toHaveBeenCalledTimes(1);
+      (service as any).randomizedMovieIndicies.push(1);
+      spyOn(service as any, "generateRandomNumber").and.returnValue(1);
+      spyOn(service as any, "getRandomMovie");
+      (service as any).getRandomMovie();
+      expect((service as any).getRandomMovie).toHaveBeenCalledTimes(1);
     });
   });
 
   describe("#getRandomRating", () => {
     it("should return a different rating than the present movie rating", () => {
       const movie = dummyMovies[0];
-      const rating = service.getRandomRating(movie);
+      const rating = (service as any).getRandomRating(movie);
       expect(rating !== movie.ratings).toBeTruthy();
 
-      spyOn(service, "generateRandomNumber").and.returnValue(movie.ratings);
-      spyOn(service, "getRandomRating");
-      service.getRandomRating(movie);
-      expect(service.getRandomRating).toHaveBeenCalledTimes(1);
+      spyOn(service as any, "generateRandomNumber").and.returnValue(
+        movie.ratings
+      );
+      spyOn(service as any, "getRandomRating");
+      (service as any).getRandomRating(movie);
+      expect((service as any).getRandomRating).toHaveBeenCalledTimes(1);
     });
   });
 
   describe("#randomizeMovies", () => {
     it("should randomizeMovies and dispatch it to the store", () => {
       const movie = dummyMovies[1];
-      service.movies = [...dummyMovies];
-      spyOn(service, "getRandomMovie").and.returnValue(movie);
+      (service as any).movies = [...dummyMovies];
+      spyOn(service as any, "getRandomMovie").and.returnValue(movie);
       spyOn(service.store, "dispatch");
-      service.randomizeMovies();
+      (service as any).randomizeMovies();
       expect(service.store.dispatch).toHaveBeenCalledWith(
         new UpdateMovie(movie)
       );
     });
   });
 
-  describe("#reset", () => {
-    it("should reset both movies and randomizedMovieIndicies", () => {
-      service.movies = [...dummyMovies];
-      service.randomizedMovieIndicies = [2, 1, 0];
-      service.reset();
-      expect(service.movies.length).toEqual(0);
-      expect(service.randomizedMovieIndicies.length).toEqual(0);
-    });
-  });
-
-  describe("#timer", () => {
-    let clearTimer;
-    beforeEach(function() {
-      jasmine.clock().install();
-      service.timeInterval = 500;
-      service.movies = [...dummyMovies];
-      spyOn(service, "randomizeMovies").and.returnValue(() => null);
-    });
-    afterEach(function() {
-      jasmine.clock().uninstall();
-    });
-    it("should activate the timer and execute the randomizeMovies", () => {
-      service.timer(true);
-      expect(service.randomizeMovies).not.toHaveBeenCalled();
-      jasmine.clock().tick(501);
-      expect(service.randomizeMovies).toHaveBeenCalled();
-    });
-    it("should clear the time when called with false", () => {
-      spyOn(global, "clearInterval");
-      service.timer(false);
-      expect(global.clearInterval).toHaveBeenCalledWith(
-        service.randomizeIntervalFunction
-      );
-    });
-  });
-
   describe("#randomize", () => {
-    it("should call the timer to activate the random rating", () => {
-      const movies = [...dummyMovies];
-      spyOn(service, "timer");
-      service.randomize(movies, true);
-      expect(service.timer).toHaveBeenCalledWith(true);
+    beforeEach(function() {
+      (service as any).timeInterval = 500;
+      (service as any).movies = [...dummyMovies];
+      spyOn((service as any).pauser, "next").and.returnValue(() => null);
+    });
+
+    it("should reset randomizedMovieIndicies array", () => {
+      expect((service as any).randomizedMovieIndicies.length).toEqual(0);
+    });
+
+    it("should activate the timer and execute the randomizeMovies", () => {
+      (service as any).randomize(true);
+      expect((service as any).pauser.next).toHaveBeenCalledWith(true);
+      (service as any).randomize(false);
+      expect((service as any).pauser.next).toHaveBeenCalledWith(false);
     });
   });
 });

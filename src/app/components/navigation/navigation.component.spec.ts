@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { NgxsModule } from "@ngxs/store";
 
-import { MaterialModuleModule } from "../../material-module";
+import { MaterialModule } from "../../material-module";
 import { NavigationComponent } from "./navigation.component";
 import { RandomizeButtonComponent } from "../randomize-button/randomize-button.component";
 
@@ -12,7 +12,7 @@ describe("NavigationComponent", () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [NavigationComponent, RandomizeButtonComponent],
-      imports: [MaterialModuleModule, NgxsModule.forRoot()]
+      imports: [MaterialModule, NgxsModule.forRoot()]
     }).compileComponents();
   }));
 

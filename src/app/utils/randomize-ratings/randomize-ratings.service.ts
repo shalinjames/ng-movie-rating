@@ -1,27 +1,34 @@
 import { Injectable } from "@angular/core";
-import { Store } from "@ngxs/store";
+import { Store, Select } from "@ngxs/store";
+import { interval, Subject, empty, Observable } from "rxjs";
+import { switchMap } from "rxjs/operators";
 
 import { Movie } from "../../type/movie";
-import { UpdateMovie } from "../../store";
+import { UpdateMovie, MoviesState } from "../../store";
 
 @Injectable({
   providedIn: "root"
 })
 export class RandomizeRatingsService {
-  public movies: Movie[];
-  public randomizeIntervalFunction;
-  public timeInterval: number = 1000;
-  public randomizedMovieIndicies;
+  private movies: Movie[];
+  private timeInterval: number = 1000;
+  private randomizedMovieIndicies = [];
+  private pauser;
+
+  @Select(MoviesState.getMovies) movies$: Observable<Movie[]>;
 
   constructor(public store: Store) {
-    this.randomizedMovieIndicies = [];
+    this.movies$.subscribe(movies => {
+      this.movies = movies;
+    });
+    this.timer();
   }
 
-  generateRandomNumber(max: number) {
+  private generateRandomNumber(max: number): number {
     return Math.floor(Math.random() * max + 1);
   }
 
-  getRandomMovie() {
+  private getRandomMovie(): Movie {
     const randomNum = this.generateRandomNumber(this.movies.length);
     if (this.randomizedMovieIndicies.length === this.movies.length) {
       this.randomizedMovieIndicies.length = 0;
@@ -34,7 +41,7 @@ export class RandomizeRatingsService {
     }
   }
 
-  getRandomRating(movie) {
+  private getRandomRating(movie: Movie): number {
     const randomNum = this.generateRandomNumber(5);
     if (randomNum === movie.ratings) {
       return this.getRandomRating(movie);
@@ -42,7 +49,7 @@ export class RandomizeRatingsService {
     return randomNum;
   }
 
-  randomizeMovies() {
+  private randomizeMovies(): void {
     const movie = this.getRandomMovie();
     const rating = this.getRandomRating(movie);
     console.log({
@@ -54,24 +61,17 @@ export class RandomizeRatingsService {
     this.store.dispatch(new UpdateMovie(movie));
   }
 
-  reset() {
-    this.movies.length = 0;
+  private timer(): void {
+    const source = interval(this.timeInterval);
+    this.pauser = new Subject();
+    const pausable = this.pauser.pipe(
+      switchMap(activate => (activate ? source : empty()))
+    );
+    pausable.subscribe(x => this.randomizeMovies());
+  }
+
+  public randomize(randomizeActivate): void {
     this.randomizedMovieIndicies.length = 0;
-  }
-
-  timer(randomizeActivate) {
-    if (randomizeActivate) {
-      this.randomizeIntervalFunction = setInterval(() => {
-        this.randomizeMovies();
-      }, this.timeInterval);
-    } else {
-      this.reset();
-      clearInterval(this.randomizeIntervalFunction);
-    }
-  }
-
-  public randomize(movies, randomizeActivate) {
-    this.movies = [...movies];
-    this.timer(randomizeActivate);
+    this.pauser.next(randomizeActivate);
   }
 }

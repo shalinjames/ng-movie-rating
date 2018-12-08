@@ -1,10 +1,10 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { StarRatingModule } from "angular-star-rating";
-import { NgxsModule, Store } from "@ngxs/store";
+import { NgxsModule } from "@ngxs/store";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 
 import { MovieListItemComponent } from "./movie-list-item.component";
-import { MaterialModuleModule } from "../../material-module";
+import { MaterialModule } from "../../material-module";
 import { dummyMovies } from "../../utils/test.util";
 import { UpdateMovie } from "../../store/movie.actions";
 
@@ -12,13 +12,11 @@ describe("MovieListItemComponent", () => {
   let component: MovieListItemComponent;
   let fixture: ComponentFixture<MovieListItemComponent>;
   const movie = { ...dummyMovies[0] };
-  let store: Store;
 
   const setup = () => {
     fixture = TestBed.createComponent(MovieListItemComponent);
     component = fixture.componentInstance;
     component.movie = movie;
-    // component.store = TestBed.get(Store);
     fixture.detectChanges();
   };
 
@@ -27,7 +25,7 @@ describe("MovieListItemComponent", () => {
       declarations: [MovieListItemComponent],
       imports: [
         HttpClientTestingModule,
-        MaterialModuleModule,
+        MaterialModule,
         StarRatingModule.forRoot(),
         NgxsModule.forRoot()
       ]
@@ -36,7 +34,6 @@ describe("MovieListItemComponent", () => {
       .then(() => {
         setup();
       });
-    store = TestBed.get(Store);
   }));
 
   it("should create movie list item", () => {
@@ -76,19 +73,12 @@ describe("MovieListItemComponent", () => {
   });
 
   describe("#starClickChange", () => {
-    let mockStore;
-    let $event = { rating: 1 };
-    beforeEach(() => {
-      mockStore = {
-        dispatch: () => {}
-      };
-    });
-
     it("tracks that the spy was called", function() {
-      spyOn(component.store, "dispatch");
+      const $event = { rating: 1 };
+      spyOn((component as any).store, "dispatch");
       component.starClickChange($event, movie);
       expect(component.movie.ratings).toEqual($event.rating);
-      expect(component.store.dispatch).toHaveBeenCalledWith(
+      expect((component as any).store.dispatch).toHaveBeenCalledWith(
         new UpdateMovie(movie)
       );
     });

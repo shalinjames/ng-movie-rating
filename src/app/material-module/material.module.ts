@@ -22,4 +22,4 @@ const includes = [
   imports: includes,
   exports: includes
 })
-export class MaterialModuleModule {}
+export class MaterialModule {}
