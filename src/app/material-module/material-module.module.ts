@@ -5,7 +5,8 @@ import {
   MatToolbarModule,
   MatIconModule,
   MatCardModule,
-  MatChipsModule
+  MatChipsModule,
+  MatTooltipModule
 } from "@angular/material";
 
 const includes = [
@@ -14,7 +15,8 @@ const includes = [
   MatToolbarModule,
   MatIconModule,
   MatCardModule,
-  MatChipsModule
+  MatChipsModule,
+  MatTooltipModule
 ];
 @NgModule({
   imports: includes,

@@ -4,5 +4,5 @@ export class SetInitialState {
 
 export class UpdateMovie {
   static readonly type = "[Movie] Update movie by id";
-  constructor(public movieIndex, public movie) {}
+  constructor(public movie) {}
 }

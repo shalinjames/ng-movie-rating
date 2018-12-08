@@ -89,7 +89,7 @@ describe("MovieListItemComponent", () => {
       component.starClickChange($event, movie);
       expect(component.movie.ratings).toEqual($event.rating);
       expect(component.store.dispatch).toHaveBeenCalledWith(
-        new UpdateMovie(component.index, movie)
+        new UpdateMovie(movie)
       );
     });
   });

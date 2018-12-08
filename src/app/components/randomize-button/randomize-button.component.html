@@ -1,0 +1,8 @@
+<button
+  mat-raised-button
+  matTooltip="{{button.helpText}}"
+  (click)="toggleRandomize()"
+>
+  <mat-icon class="action-icon">{{ button.type }}</mat-icon>
+  {{ button.buttonText }}
+</button>

@@ -54,7 +54,7 @@ describe("MoviesState", () => {
       movie.ratings = 5;
       movie.title = "Random Title";
 
-      store.dispatch(new UpdateMovie(1, movie));
+      store.dispatch(new UpdateMovie(movie));
 
       store
         .selectOnce(state => state.movies)

@@ -24,6 +24,6 @@ export class MovieListItemComponent implements OnInit {
   }
   starClickChange($event, movie) {
     movie.ratings = $event.rating;
-    this.store.dispatch(new UpdateMovie(this.index, movie));
+    this.store.dispatch(new UpdateMovie(movie));
   }
 }
