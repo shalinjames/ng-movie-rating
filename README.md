@@ -4,24 +4,19 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Run `npm start` for a dev server. The application will open up in the browser `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `npm test` to execute the unit tests via [Karma](https://karma-runner.github.io). And also publishes the test coverage in the coverage folder.
 
-## Running end-to-end tests
+## Screenshot of the application
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+![screenshot of the application](https://raw.githubusercontent.com/shalinjames/ng-movie-rating/master/application-screenshot.jpeg)
 
-## Further help
+### Movie rating application features
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+- Movies are listed as cards with title, actors, genere, ratings in the form of starts
+- Movie is ordered as per the movie's rating. More the stars, higher the order.
+- User can click on the rating star to choose an appropriate rating for the movie
+- Top right corner is the randomize button. It will assign random rating to random movie in every second until it is stopped
