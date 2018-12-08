@@ -10,7 +10,7 @@ import { UpdateMovie } from "../../store";
 export class RandomizeRatingsService {
   public movies: Movie[];
   public randomizeIntervalFunction;
-  private timeInterval: number = 1000;
+  public timeInterval: number = 1000;
   public randomizedMovieIndicies;
 
   constructor(public store: Store) {
